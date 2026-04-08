@@ -12,7 +12,7 @@ interface ContradictionEngineProps {
   }
 }
 
-export default function ContradictionEngine({ contradictions, intro }: ContradictionEngineProps) {
+export default function ContradictionEngine({ contradictions = [], intro }: ContradictionEngineProps) {
   const rowRefs = useRef<(HTMLDivElement | null)[]>([])
   const fillRefs = useRef<(HTMLDivElement | null)[]>([])
 

@@ -6,7 +6,7 @@ interface HeroProps {
   meta: string[]
 }
 
-export default function Hero({ title, titleEm, coldOpenTag, deck, meta }: HeroProps) {
+export default function Hero({ title, titleEm, coldOpenTag, deck, meta = [] }: HeroProps) {
   const parts = title.split(titleEm)
 
   return (

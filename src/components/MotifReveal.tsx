@@ -31,7 +31,7 @@ function renderLine(line: VerdictLine): React.ReactNode {
   return line.text
 }
 
-export default function MotifReveal({ lines }: MotifRevealProps) {
+export default function MotifReveal({ lines = [] }: MotifRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const lineRefs = useRef<(HTMLParagraphElement | null)[]>([])
 

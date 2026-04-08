@@ -32,7 +32,7 @@ function renderLine(line: VerdictLine, isLit: boolean): React.ReactNode {
   return line.text
 }
 
-export default function Verdict({ lines, coda }: VerdictProps) {
+export default function Verdict({ lines = [], coda }: VerdictProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const lineRefs = useRef<(HTMLParagraphElement | null)[]>([])
 

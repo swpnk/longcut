@@ -11,7 +11,7 @@ interface EvidenceFileProps {
   items: EvidenceItem[]
 }
 
-export default function EvidenceFile({ label, from, to, subject, items }: EvidenceFileProps) {
+export default function EvidenceFile({ label, from, to, subject, items = [] }: EvidenceFileProps) {
   const [revealed, setRevealed] = useState<Set<number>>(new Set())
 
   const toggle = (i: number) => {

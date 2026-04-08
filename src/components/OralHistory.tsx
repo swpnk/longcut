@@ -5,7 +5,7 @@ interface OralHistoryProps {
   eyebrow?: string
 }
 
-export default function OralHistory({ voices, eyebrow }: OralHistoryProps) {
+export default function OralHistory({ voices = [], eyebrow }: OralHistoryProps) {
   return (
     <>
       <style>{`
