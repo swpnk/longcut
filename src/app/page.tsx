@@ -1,5 +1,21 @@
 import type { Metadata } from 'next'
-import Gate from '@/components/Gate'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import { getArticleBySlug } from '@/lib/mdx'
+import LandingClient from '@/components/LandingClient'
+import Hero from '@/components/Hero'
+import ActBreak from '@/components/ActBreak'
+import Prose from '@/components/Prose'
+import OpenLoop from '@/components/OpenLoop'
+import PullQuote from '@/components/PullQuote'
+import SceneCard from '@/components/SceneCard'
+import OralHistory from '@/components/OralHistory'
+import SecondPerson from '@/components/SecondPerson'
+import EvidenceFile from '@/components/EvidenceFile'
+import ContradictionEngine from '@/components/ContradictionEngine'
+import Verdict from '@/components/Verdict'
+import MotifReveal from '@/components/MotifReveal'
+import MentalModel from '@/components/MentalModel'
+import ReaderVote from '@/components/ReaderVote'
 
 export const metadata: Metadata = {
   title: 'longcut.ink',
@@ -15,86 +31,40 @@ export const metadata: Metadata = {
   },
 }
 
-export default function HomePage() {
+// Gate inside the MDX is suppressed — LandingClient renders the real Gate above
+const NullGate = () => null
+
+const components = {
+  Gate: NullGate,
+  Hero,
+  ActBreak,
+  Prose,
+  OpenLoop,
+  PullQuote,
+  SceneCard,
+  OralHistory,
+  SecondPerson,
+  EvidenceFile,
+  ContradictionEngine,
+  Verdict,
+  MotifReveal,
+  MentalModel,
+  ReaderVote,
+}
+
+export default async function HomePage() {
+  const data = getArticleBySlug('altman')
+  if (!data) return null
+
+  const { frontmatter, content } = data
+
   return (
-    <>
-      <style>{`
-        .landing {
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .landing-gate-wrap {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .landing-enter {
-          display: block;
-          text-align: center;
-          margin-top: 1rem;
-          font-family: var(--font-label);
-          font-size: 9px;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: rgba(240, 232, 216, 0.3);
-          text-decoration: none;
-          transition: color 0.2s;
-        }
-
-        .landing-enter:hover {
-          color: var(--gold);
-        }
-
-        .landing-footer {
-          text-align: center;
-          padding: 2rem;
-          border-top: 0.5px solid var(--faint);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 1.5rem;
-        }
-
-        .landing-footer-logo {
-          font-family: var(--font-label);
-          font-size: 9px;
-          letter-spacing: 0.12em;
-          color: rgba(240, 232, 216, 0.2);
-          text-transform: uppercase;
-        }
-
-        .landing-footer-sep {
-          color: rgba(240, 232, 216, 0.1);
-        }
-
-        .landing-footer-tagline {
-          font-family: var(--font-body);
-          font-size: 13px;
-          font-style: italic;
-          color: rgba(240, 232, 216, 0.18);
-        }
-      `}</style>
-
-      <div className="landing">
-        <div className="landing-gate-wrap">
-          <Gate
-            question="Should one person be trusted with the most powerful technology in human history?"
-            issueLabel="longcut.ink · Issue 001 · The Architect"
-          />
-          <a href="/altman" className="landing-enter">
-            Read the piece: Sam Altman — The Architect →
-          </a>
-        </div>
-
-        <footer className="landing-footer">
-          <span className="landing-footer-logo">longcut.ink</span>
-          <span className="landing-footer-sep">·</span>
-          <span className="landing-footer-tagline">The long game, in ink.</span>
-        </footer>
-      </div>
-    </>
+    <LandingClient
+      question={frontmatter.gate}
+      acts={frontmatter.acts}
+      totalMinutes={frontmatter.totalMinutes}
+    >
+      <MDXRemote source={content} components={components} />
+    </LandingClient>
   )
 }
