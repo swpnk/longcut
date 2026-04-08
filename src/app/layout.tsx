@@ -26,6 +26,7 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://longcut.ink"),
   title: {
     template: "%s | longcut.ink",
     default: "longcut.ink",
@@ -35,6 +36,11 @@ export const metadata: Metadata = {
     title: "longcut.ink",
     description: "Cinematic long-form journalism. The long game, in ink.",
     siteName: "longcut.ink",
+    url: "https://longcut.ink",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@longcutink",
   },
 };
 
