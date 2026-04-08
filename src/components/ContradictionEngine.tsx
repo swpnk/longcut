@@ -272,6 +272,10 @@ export default function ContradictionEngine({ contradictions = [], intro }: Cont
         }
 
         @media (max-width: 640px) {
+          .ce-wrap {
+            overflow-x: hidden;
+          }
+
           .ce-row {
             grid-template-columns: 1fr;
           }
