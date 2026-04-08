@@ -72,34 +72,34 @@ After each task, run `next build` to verify no TypeScript or build errors before
 *Reference `src/components/README.md` for the full contract of each component.*
 
 ### Task 2.1 — Filmstrip nav
-- [ ] Create `src/components/Filmstrip.tsx`
-- [ ] Props: `acts: Act[]`, `totalMinutes: number`
-- [ ] Fixed position, z-index 500, height 48px, background rgba(10,8,6,0.97)
-- [ ] Left: longcut.ink logo in DM Mono gold
-- [ ] Center: act pips row — each pip has act label (small, DM Mono) and act name (DM Mono, hidden on mobile)
-- [ ] Each pip has a 2px gold underline that animates scaleX(0→1) when active
-- [ ] Active pip tracked via IntersectionObserver watching elements with `data-act-id` attribute
-- [ ] Pip click scrolls to element with matching `id` — smooth, user-initiated only
-- [ ] Done pips (before active) show gold at 35% opacity underline
-- [ ] Right: time remaining ("~28 min left" counting down based on scroll %, "Finished" at bottom)
-- [ ] Mobile: act names hidden, numbers only, logo shortened
+- [x] Create `src/components/Filmstrip.tsx`
+- [x] Props: `acts: Act[]`, `totalMinutes: number`
+- [x] Fixed position, z-index 500, height 48px, background rgba(10,8,6,0.97)
+- [x] Left: longcut.ink logo in DM Mono gold
+- [x] Center: act pips row — each pip has act label (small, DM Mono) and act name (DM Mono, hidden on mobile)
+- [x] Each pip has a 2px gold underline that animates scaleX(0→1) when active
+- [x] Active pip tracked via IntersectionObserver watching elements with `data-act-id` attribute
+- [x] Pip click scrolls to element with matching `id` — smooth, user-initiated only
+- [x] Done pips (before active) show gold at 35% opacity underline
+- [x] Right: time remaining ("~28 min left" counting down based on scroll %, "Finished" at bottom)
+- [x] Mobile: act names hidden, numbers only, logo shortened
 
 **Verify:** Renders correctly. Pips update as you scroll. Time counter works.
 
 ---
 
 ### Task 2.2 — Gate component
-- [ ] Create `src/components/Gate.tsx`
-- [ ] Props: `question: string`, `seedVotes?: { yes: number, no: number }`
-- [ ] Full viewport height, flex column centered
-- [ ] Issue label in DM Mono gold (reads from article context or prop)
-- [ ] Question in Playfair Display italic, clamp(24px, 4.5vw, 50px), max-width 620px
-- [ ] Subtext: "Answer now. Before the evidence. We'll ask again at the end."
-- [ ] Two buttons: "Yes, I trust him" / "No, I don't" — DM Mono uppercase, border .5px
-- [ ] On vote: store in `localStorage('lc_gate')`, highlight chosen button, show live percentage bars (seed + 0 or 1 vote)
-- [ ] Percentage bars animate width on appear (300ms delay)
-- [ ] "Enter the piece ↓" link below — scrolls to hero, user-initiated only, NO auto-scroll
-- [ ] SSR safe: all localStorage access inside useEffect or behind typeof window check
+- [x] Create `src/components/Gate.tsx`
+- [x] Props: `question: string`, `seedVotes?: { yes: number, no: number }`
+- [x] Full viewport height, flex column centered
+- [x] Issue label in DM Mono gold (reads from article context or prop)
+- [x] Question in Playfair Display italic, clamp(24px, 4.5vw, 50px), max-width 620px
+- [x] Subtext: "Answer now. Before the evidence. We'll ask again at the end."
+- [x] Two buttons: "Yes, I trust him" / "No, I don't" — DM Mono uppercase, border .5px
+- [x] On vote: store in `localStorage('lc_gate')`, highlight chosen button, show live percentage bars (seed + 0 or 1 vote)
+- [x] Percentage bars animate width on appear (300ms delay)
+- [x] "Enter the piece ↓" link below — scrolls to hero, user-initiated only, NO auto-scroll
+- [x] SSR safe: all localStorage access inside useEffect or behind typeof window check
 
 **Verify:** Vote persists on refresh. Buttons highlight correctly. No SSR errors.
 
@@ -216,62 +216,62 @@ After each task, run `next build` to verify no TypeScript or build errors before
 ---
 
 ### Task 2.11 — Evidence file component
-- [ ] Create `src/components/EvidenceFile.tsx`
-- [ ] Props: `label: string`, `from: string`, `to: string`, `subject: string`, `items: EvidenceItem[]`
-- [ ] Max-width 660px, centered, padding 0 2.5rem
-- [ ] Label row: DM Mono 8px, gold, uppercase, flex with small square before (::before border .5px gold)
-- [ ] Document card: background #0d0a07, border .5px rgba(200,169,110,0.12), padding 2rem
-- [ ] "DOCUMENT" watermark: absolute top-right, DM Mono 7px, opacity 0.1
-- [ ] Header: DM Mono 9px — From/To in dim, Subject in gold
-- [ ] Separator: border-bottom .5px rgba(240,232,216,0.05), margin-bottom 1.5rem
-- [ ] Each item: flex row, number in gold, text in rgba(240,232,216,0.65), DM Mono 11px
-- [ ] Item background: rgba(240,232,216,0.015), border-left .5px rgba(200,169,110,0.18)
-- [ ] Redacted spans: `background rgba(240,232,216,0.12)`, `color transparent`, cursor pointer
-- [ ] On click: add class `.revealed` — background transparent, color rgba(200,169,110,0.85), transition 0.3s
-- [ ] Hint text at bottom: "Click redacted lines to reveal"
+- [x] Create `src/components/EvidenceFile.tsx`
+- [x] Props: `label: string`, `from: string`, `to: string`, `subject: string`, `items: EvidenceItem[]`
+- [x] Max-width 660px, centered, padding 0 2.5rem
+- [x] Label row: DM Mono 8px, gold, uppercase, flex with small square before (::before border .5px gold)
+- [x] Document card: background #0d0a07, border .5px rgba(200,169,110,0.12), padding 2rem
+- [x] "DOCUMENT" watermark: absolute top-right, DM Mono 7px, opacity 0.1
+- [x] Header: DM Mono 9px — From/To in dim, Subject in gold
+- [x] Separator: border-bottom .5px rgba(240,232,216,0.05), margin-bottom 1.5rem
+- [x] Each item: flex row, number in gold, text in rgba(240,232,216,0.65), DM Mono 11px
+- [x] Item background: rgba(240,232,216,0.015), border-left .5px rgba(200,169,110,0.18)
+- [x] Redacted spans: `background rgba(240,232,216,0.12)`, `color transparent`, cursor pointer
+- [x] On click: add class `.revealed` — background transparent, color rgba(200,169,110,0.85), transition 0.3s
+- [x] Hint text at bottom: "Click redacted lines to reveal"
 
 **Verify:** Redaction click-to-reveal works. Document looks like a classified file.
 
 ---
 
 ### Task 2.12 — Contradiction engine component
-- [ ] Create `src/components/ContradictionEngine.tsx`
-- [ ] Props: `contradictions: ContradictionItem[]`, `intro?: { eyebrow: string, title: string, sub: string }`
-- [ ] If intro prop: render centered intro section with eyebrow, large italic title, subtitle, bouncing arrow
-- [ ] Each contradiction: 2-column grid, border-bottom .5px faint
-- [ ] Scroll reveal: opacity 0 → 1, translateY 20px → 0, on IntersectionObserver entry (threshold 0.2)
-- [ ] Left column ("He said"): gold tag + line, year in DM Mono dim, quote in Playfair italic (em children in gold), source in DM Mono dimmer
-- [ ] Right column ("He did"): red tag + line, year, body text (strong children brighter), badge (red border pill)
-- [ ] Ghost numeral: absolute right, Playfair Display bold, 90px, opacity 0.025, red tint
-- [ ] Gap row: spans both columns, border-top .5px faint, red background tint 0.018
-- [ ] Gap bar: flex row, "Integrity gap" label, track (2px height, dim background), fill (red, width 0 → gap% on scroll entry, transition 1.1s ease), value label
-- [ ] Mobile: single column, ghost numeral hidden
+- [x] Create `src/components/ContradictionEngine.tsx`
+- [x] Props: `contradictions: ContradictionItem[]`, `intro?: { eyebrow: string, title: string, sub: string }`
+- [x] If intro prop: render centered intro section with eyebrow, large italic title, subtitle, bouncing arrow
+- [x] Each contradiction: 2-column grid, border-bottom .5px faint
+- [x] Scroll reveal: opacity 0 → 1, translateY 20px → 0, on IntersectionObserver entry (threshold 0.2)
+- [x] Left column ("He said"): gold tag + line, year in DM Mono dim, quote in Playfair italic (em children in gold), source in DM Mono dimmer
+- [x] Right column ("He did"): red tag + line, year, body text (strong children brighter), badge (red border pill)
+- [x] Ghost numeral: absolute right, Playfair Display bold, 90px, opacity 0.025, red tint
+- [x] Gap row: spans both columns, border-top .5px faint, red background tint 0.018
+- [x] Gap bar: flex row, "Integrity gap" label, track (2px height, dim background), fill (red, width 0 → gap% on scroll entry, transition 1.1s ease), value label
+- [x] Mobile: single column, ghost numeral hidden
 
 **Verify:** Gap bars animate on scroll. Each contradiction fades in. Mobile stacks cleanly.
 
 ---
 
 ### Task 2.13 — Verdict component
-- [ ] Create `src/components/Verdict.tsx`
-- [ ] Props: `lines: VerdictLine[]`, `coda?: string`
-- [ ] Padding 5rem 2rem, text-center, background rgba(200,169,110,0.012)
-- [ ] Each line: Playfair Display italic, clamp(17px,2.5vw,26px), color rgba(240,232,216,0.07), transition color 0.8s
-- [ ] On IntersectionObserver entry (threshold 0.35): add `.lit` class to each line with staggered delay (i * 300ms)
-- [ ] `.lit` class: color rgba(240,232,216,0.9)
-- [ ] Lines with `em: true`: entire line in gold when lit
-- [ ] Lines with `em: string`: that substring wrapped in em (gold)
-- [ ] Coda: DM Mono 8px gold-dim uppercase, margin-top 2.5rem
+- [x] Create `src/components/Verdict.tsx`
+- [x] Props: `lines: VerdictLine[]`, `coda?: string`
+- [x] Padding 5rem 2rem, text-center, background rgba(200,169,110,0.012)
+- [x] Each line: Playfair Display italic, clamp(17px,2.5vw,26px), color rgba(240,232,216,0.07), transition color 0.8s
+- [x] On IntersectionObserver entry (threshold 0.35): add `.lit` class to each line with staggered delay (i * 300ms)
+- [x] `.lit` class: color rgba(240,232,216,0.9)
+- [x] Lines with `em: true`: entire line in gold when lit
+- [x] Lines with `em: string`: that substring wrapped in em (gold)
+- [x] Coda: DM Mono 8px gold-dim uppercase, margin-top 2.5rem
 
 **Verify:** Lines reveal sequentially. Last line hits hardest. Coda is subtle.
 
 ---
 
 ### Task 2.14 — Motif reveal component
-- [ ] Create `src/components/MotifReveal.tsx`
-- [ ] Props: `lines: VerdictLine[]`
-- [ ] Same pattern as Verdict but stagger 250ms per line (slightly faster)
-- [ ] Padding 5rem 2rem, text-center
-- [ ] Last line: slightly smaller font, opacity 0.6 when lit (feels like a whisper after the detonation)
+- [x] Create `src/components/MotifReveal.tsx`
+- [x] Props: `lines: VerdictLine[]`
+- [x] Same pattern as Verdict but stagger 250ms per line (slightly faster)
+- [x] Padding 5rem 2rem, text-center
+- [x] Last line: slightly smaller font, opacity 0.6 when lit (feels like a whisper after the detonation)
 
 **Verify:** Motif fires in sequence. Feels like recognition, not announcement.
 
@@ -410,6 +410,18 @@ After each task, run `next build` to verify no TypeScript or build errors before
 - [ ] Verify longcut.ink resolves and loads correctly
 - [ ] Verify longcut.ink/altman loads the full article
 - [ ] Test gate vote, scroll reveals, contradiction engine, reader vote on the live URL
+
+---
+
+### Task 5.6 — SEO and distribution setup
+- [ ] JSON-LD Article schema on every article page
+- [ ] JSON-LD Person schema for article subject
+- [ ] Auto-generated sitemap from content files (next-sitemap package)
+- [ ] OG image generated from frontmatter (next/og or static)
+- [ ] Share URLs for each major section (#contradiction-1, #verdict etc)
+- [ ] Plain text companion page at /altman/read for Google indexing
+- [ ] Submit to Google Search Console after launch
+- [ ] Submit sitemap to Google Search Console
 
 **LAUNCHED. ✓**
 
