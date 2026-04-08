@@ -6,11 +6,12 @@ interface GateProps {
   question: string
   issueLabel?: string
   seedVotes?: { yes: number; no: number }
+  onVoted?: (choice: 'yes' | 'no') => void
 }
 
 const DEFAULT_SEED = { yes: 3241, no: 11087 }
 
-export default function Gate({ question, issueLabel, seedVotes }: GateProps) {
+export default function Gate({ question, issueLabel, seedVotes, onVoted }: GateProps) {
   const seed = seedVotes ?? DEFAULT_SEED
   const [vote, setVote] = useState<'yes' | 'no' | null>(null)
   const [counts, setCounts] = useState(seed)
@@ -26,6 +27,7 @@ export default function Gate({ question, issueLabel, seedVotes }: GateProps) {
 
   const handleVote = (choice: 'yes' | 'no') => {
     if (vote) return
+    onVoted?.(choice)
     localStorage.setItem('lc_gate', choice)
     setVote(choice)
     setCounts((prev) => ({ ...prev, [choice]: prev[choice] + 1 }))
@@ -174,18 +176,17 @@ export default function Gate({ question, issueLabel, seedVotes }: GateProps) {
           width: var(--target-width);
         }
 
-        .gate-enter {
-          font-family: var(--font-label);
-          font-size: 9px;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: rgba(240, 232, 216, 0.3);
-          text-decoration: none;
-          transition: color 0.2s;
-        }
-
-        .gate-enter:hover {
-          color: var(--gold);
+        @media (max-width: 640px) {
+          .gate-buttons {
+            flex-direction: column;
+            width: 100%;
+            max-width: 320px;
+          }
+          .gate-btn {
+            width: 100%;
+            min-height: 48px;
+            padding: 16px 32px;
+          }
         }
       `}</style>
 
@@ -241,12 +242,6 @@ export default function Gate({ question, issueLabel, seedVotes }: GateProps) {
             </div>
           </div>
         </div>
-
-        {vote && (
-          <a href="#hero" className="gate-enter">
-            Enter the piece ↓
-          </a>
-        )}
       </section>
     </>
   )
