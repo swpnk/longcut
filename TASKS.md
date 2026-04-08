@@ -13,55 +13,55 @@ After each task, run `next build` to verify no TypeScript or build errors before
 - [ ] Verify `next.config.ts` has MDX support configured
 - [ ] Verify `tailwind.config.ts` includes `src/**/*.{ts,tsx,mdx}` in content paths
 - [ ] Verify `tsconfig.json` has strict mode enabled
-- [ ] Install required packages: `npm install next-mdx-remote gray-matter scrollama`
-- [ ] Install dev packages: `npm install -D @types/scrollama`
+- [x] Install required packages: `npm install next-mdx-remote gray-matter scrollama`
+- [x] Install dev packages: `npm install -D @types/scrollama` (package does not exist — scrollama bundles its own types)
 
 **Verify:** `npm run dev` starts without errors.
 
 ---
 
 ### Task 1.2 — Design system
-- [ ] Create `src/app/globals.css` with all CSS custom properties from CLAUDE.md
-- [ ] Add base body styles: `background: var(--ink); color: var(--paper); overflow-x: hidden`
-- [ ] Add smooth scroll: `html { scroll-behavior: smooth }`
-- [ ] Add reveal animation classes: `.reveal-item` (opacity 0, translateY 20px) and `.reveal-item.visible` (opacity 1, translateY 0)
-- [ ] Add `.lit` class for sequential text reveals: same pattern as reveal-item
+- [x] Create `src/app/globals.css` with all CSS custom properties from CLAUDE.md
+- [x] Add base body styles: `background: var(--ink); color: var(--paper); overflow-x: hidden`
+- [x] Add smooth scroll: `html { scroll-behavior: smooth }`
+- [x] Add reveal animation classes: `.reveal-item` (opacity 0, translateY 20px) and `.reveal-item.visible` (opacity 1, translateY 0)
+- [x] Add `.lit` class for sequential text reveals: same pattern as reveal-item
 
 **Verify:** Import globals.css in `src/app/layout.tsx`. Background should be near-black.
 
 ---
 
 ### Task 1.3 — Fonts and root layout
-- [ ] Create `src/app/layout.tsx`
-- [ ] Import Playfair Display (weights: 400, 700, subsets: latin, display: swap)
-- [ ] Import EB Garamond (weights: 400, 500, subsets: latin, display: swap)
-- [ ] Import DM Mono (weights: 300, 400, subsets: latin, display: swap)
-- [ ] Apply font CSS variables to `:root` in globals.css
-- [ ] Set metadata: title template `%s | longcut.ink`, description, og defaults
-- [ ] Root layout renders `{children}` with font class names on body
+- [x] Create `src/app/layout.tsx`
+- [x] Import Playfair Display (weights: 400, 700, subsets: latin, display: swap)
+- [x] Import EB Garamond (weights: 400, 500, subsets: latin, display: swap)
+- [x] Import DM Mono (weights: 300, 400, subsets: latin, display: swap)
+- [x] Apply font CSS variables to `:root` in globals.css
+- [x] Set metadata: title template `%s | longcut.ink`, description, og defaults
+- [x] Root layout renders `{children}` with font class names on body
 
 **Verify:** Fonts load. No FOUT (flash of unstyled text).
 
 ---
 
 ### Task 1.4 — TypeScript types
-- [ ] Create `src/types/article.ts`
-- [ ] Define `ArticleFrontmatter` interface (title, subject, issue, deck, totalMinutes, gate, coldOpenTag, acts)
-- [ ] Define `Act` interface (id, label, name)
-- [ ] Define `ContradictionItem` interface (yearSaid, quote, source, yearDid, action, badge, gap)
-- [ ] Define `OralHistoryVoice` interface (name, role, quote)
-- [ ] Define `EvidenceItem` interface (number, text, redacted?)
-- [ ] Define `VerdictLine` type (string | { text: string, em?: boolean | string })
+- [x] Create `src/types/article.ts`
+- [x] Define `ArticleFrontmatter` interface (title, subject, issue, deck, totalMinutes, gate, coldOpenTag, acts)
+- [x] Define `Act` interface (id, label, name)
+- [x] Define `ContradictionItem` interface (yearSaid, quote, source, yearDid, action, badge, gap)
+- [x] Define `OralHistoryVoice` interface (name, role, quote)
+- [x] Define `EvidenceItem` interface (number, text, redacted?)
+- [x] Define `VerdictLine` type (string | { text: string, em?: boolean | string })
 
 **Verify:** No TypeScript errors. Types are exported and importable.
 
 ---
 
 ### Task 1.5 — MDX processing
-- [ ] Create `src/lib/mdx.ts`
-- [ ] Function `getArticleBySlug(slug: string)` — reads from `src/content/[slug].mdx`, parses frontmatter with gray-matter, returns `{ frontmatter: ArticleFrontmatter, content: string }`
-- [ ] Function `getAllArticleSlugs()` — returns array of slugs from src/content directory
-- [ ] Handle file-not-found gracefully (return null, let page handle 404)
+- [x] Create `src/lib/mdx.ts`
+- [x] Function `getArticleBySlug(slug: string)` — reads from `src/content/[slug].mdx`, parses frontmatter with gray-matter, returns `{ frontmatter: ArticleFrontmatter, content: string }`
+- [x] Function `getAllArticleSlugs()` — returns array of slugs from src/content directory
+- [x] Handle file-not-found gracefully (return null, let page handle 404)
 
 **Verify:** Import and call `getArticleBySlug('altman')` — should return null (file doesn't exist yet) without crashing.
 
