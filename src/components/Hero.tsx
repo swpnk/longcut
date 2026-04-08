@@ -141,6 +141,15 @@ export default function Hero({ title, titleEm, coldOpenTag, deck, meta }: HeroPr
           0%, 100% { opacity: 0.4; transform: scaleY(1); }
           50% { opacity: 1; transform: scaleY(1.1); }
         }
+
+        @media (max-width: 640px) {
+          .hero {
+            padding: 48px 1.5rem 4rem;
+          }
+          .hero-ghost {
+            display: none;
+          }
+        }
       `}</style>
 
       <section className="hero" id="hero">

@@ -196,6 +196,12 @@ export default function ReaderVote({ question, seedVotes }: ReaderVoteProps) {
           margin-top: 1.25rem;
           line-height: 1.6;
         }
+
+        @media (max-width: 640px) {
+          .reader-vote {
+            padding: 3rem 1.5rem;
+          }
+        }
       `}</style>
 
       <div className="reader-vote">

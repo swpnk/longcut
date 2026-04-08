@@ -56,6 +56,12 @@ export default function OpenLoop({ word, note, preLabel }: OpenLoopProps) {
           background: var(--gold-dim);
           flex-shrink: 0;
         }
+
+        @media (max-width: 640px) {
+          .open-loop {
+            padding: 2rem 1.5rem;
+          }
+        }
       `}</style>
 
       <div className="open-loop">

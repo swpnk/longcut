@@ -32,6 +32,13 @@ export default function PullQuote({ quote, cite }: PullQuoteProps) {
           color: var(--gold);
           font-style: normal;
         }
+
+        @media (max-width: 640px) {
+          .pull-quote {
+            margin: 0 1.5rem 3rem;
+            padding: 1.5rem;
+          }
+        }
       `}</style>
 
       <blockquote className="pull-quote">

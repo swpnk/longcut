@@ -106,110 +106,110 @@ After each task, run `next build` to verify no TypeScript or build errors before
 ---
 
 ### Task 2.3 — Hero component
-- [ ] Create `src/components/Hero.tsx`
-- [ ] Props: `title: string`, `titleEm: string`, `coldOpenTag: string`, `deck: string`, `meta: string[]`
-- [ ] Full viewport height, flex column justify-end, padding bottom 5rem
-- [ ] Dark vignette overlay (CSS gradient, pointer-events none)
-- [ ] Ghost numeral "01" — absolute position right, clamp(140px,18vw,240px), opacity 0.022
-- [ ] Cold open tag: DM Mono 9px gold uppercase with gold line before (::before)
-- [ ] H1: Playfair Display, clamp(44px,7vw,84px), `titleEm` wrapped in `<em>` styled gold italic
-- [ ] Deck: EB Garamond 20px italic muted, max-width 520px
-- [ ] Meta row: DM Mono 9px, items joined by · separator at 30% opacity
-- [ ] Scroll cue: absolute bottom 2rem, centered, animated gold line + "scroll" text
+- [x] Create `src/components/Hero.tsx`
+- [x] Props: `title: string`, `titleEm: string`, `coldOpenTag: string`, `deck: string`, `meta: string[]`
+- [x] Full viewport height, flex column justify-end, padding bottom 5rem
+- [x] Dark vignette overlay (CSS gradient, pointer-events none)
+- [x] Ghost numeral "01" — absolute position right, clamp(140px,18vw,240px), opacity 0.022
+- [x] Cold open tag: DM Mono 9px gold uppercase with gold line before (::before)
+- [x] H1: Playfair Display, clamp(44px,7vw,84px), `titleEm` wrapped in `<em>` styled gold italic
+- [x] Deck: EB Garamond 20px italic muted, max-width 520px
+- [x] Meta row: DM Mono 9px, items joined by · separator at 30% opacity
+- [x] Scroll cue: absolute bottom 2rem, centered, animated gold line + "scroll" text
 
 **Verify:** Ghost numeral visible but very subtle. Em word renders in gold.
 
 ---
 
 ### Task 2.4 — Act break component
-- [ ] Create `src/components/ActBreak.tsx`
-- [ ] Props: `number: string | number`, `title: string`, `id?: string`
-- [ ] Centered, padding 5rem 2rem 4rem, border-top .5px faint
-- [ ] Ghost numeral: absolute, Playfair Display, clamp(80px,14vw,160px), opacity 0.018, hidden on mobile
-- [ ] Act label: DM Mono 9px gold uppercase ("Act I")
-- [ ] Gold rule: 40px wide, .5px, gold-dim, centered
-- [ ] Title: Playfair Display italic, clamp(20px,3.2vw,36px)
-- [ ] Renders a `data-act-id` attribute matching id prop (for Filmstrip IntersectionObserver)
-- [ ] Also renders a scroll anchor `<span id={id}>` with negative top offset for nav height
+- [x] Create `src/components/ActBreak.tsx`
+- [x] Props: `number: string | number`, `title: string`, `id?: string`
+- [x] Centered, padding 5rem 2rem 4rem, border-top .5px faint
+- [x] Ghost numeral: absolute, Playfair Display, clamp(80px,14vw,160px), opacity 0.018, hidden on mobile
+- [x] Act label: DM Mono 9px gold uppercase ("Act I")
+- [x] Gold rule: 40px wide, .5px, gold-dim, centered
+- [x] Title: Playfair Display italic, clamp(20px,3.2vw,36px)
+- [x] Renders a `data-act-id` attribute matching id prop (for Filmstrip IntersectionObserver)
+- [x] Also renders a scroll anchor `<span id={id}>` with negative top offset for nav height
 
 **Verify:** Ghost numeral sits behind content. Filmstrip detects when in view.
 
 ---
 
 ### Task 2.5 — Prose component
-- [ ] Create `src/components/Prose.tsx`
-- [ ] Props: `children: React.ReactNode`, `dropcap?: boolean`, `wide?: boolean`
-- [ ] Max-width 660px (wide: 820px), centered, padding 1rem 2.5rem 3rem
-- [ ] Paragraph styles: 19px EB Garamond, line-height 1.8, color rgba(240,232,216,0.87), margin-bottom 1.65em
-- [ ] Drop cap: first paragraph first letter — Playfair Display, 4.2em, float left, gold, only when dropcap prop true
-- [ ] Mobile: padding 1rem 1.5rem 2.5rem
+- [x] Create `src/components/Prose.tsx`
+- [x] Props: `children: React.ReactNode`, `dropcap?: boolean`, `wide?: boolean`
+- [x] Max-width 660px (wide: 820px), centered, padding 1rem 2.5rem 3rem
+- [x] Paragraph styles: 19px EB Garamond, line-height 1.8, color rgba(240,232,216,0.87), margin-bottom 1.65em
+- [x] Drop cap: first paragraph first letter — Playfair Display, 4.2em, float left, gold, only when dropcap prop true
+- [x] Mobile: padding 1rem 1.5rem 2.5rem
 
 **Verify:** Drop cap appears only when prop passed. Text is readable at 19px.
 
 ---
 
 ### Task 2.6 — Open loop component
-- [ ] Create `src/components/OpenLoop.tsx`
-- [ ] Props: `word: string`, `note: string`, `preLabel?: string`
-- [ ] Max-width 660px, centered, padding 2.5rem
-- [ ] Border top and bottom: .5px gold-dim
-- [ ] Pre-label: DM Mono 9px, rgba(240,232,216,0.25), uppercase
-- [ ] Word: Playfair Display bold italic, clamp(44px,7vw,80px), gold, display block
-- [ ] Note: DM Mono 9px, rgba(240,232,216,0.18), uppercase, flex with gold line before
+- [x] Create `src/components/OpenLoop.tsx`
+- [x] Props: `word: string`, `note: string`, `preLabel?: string`
+- [x] Max-width 660px, centered, padding 2.5rem
+- [x] Border top and bottom: .5px gold-dim
+- [x] Pre-label: DM Mono 9px, rgba(240,232,216,0.25), uppercase
+- [x] Word: Playfair Display bold italic, clamp(44px,7vw,80px), gold, display block
+- [x] Note: DM Mono 9px, rgba(240,232,216,0.18), uppercase, flex with gold line before
 
 **Verify:** Word is large and gold. Note is subtle. Component feels like a designed pause.
 
 ---
 
 ### Task 2.7 — Pull quote component
-- [ ] Create `src/components/PullQuote.tsx`
-- [ ] Props: `quote: string`, `cite: string`
-- [ ] Max-width 580px, centered, margin bottom 3rem
-- [ ] Border left: 2px solid gold
-- [ ] Padding: 1.75rem 2.5rem
-- [ ] Quote: Playfair Display italic, clamp(16px,2vw,21px), line-height 1.45, color #f0e8d8
-- [ ] Cite: DM Mono 9px gold uppercase, font-style normal
+- [x] Create `src/components/PullQuote.tsx`
+- [x] Props: `quote: string`, `cite: string`
+- [x] Max-width 580px, centered, margin bottom 3rem
+- [x] Border left: 2px solid gold
+- [x] Padding: 1.75rem 2.5rem
+- [x] Quote: Playfair Display italic, clamp(16px,2vw,21px), line-height 1.45, color #f0e8d8
+- [x] Cite: DM Mono 9px gold uppercase, font-style normal
 
 **Verify:** Left gold border is 2px (not .5px). Quote is readable and elegant.
 
 ---
 
 ### Task 2.8 — Scene card component
-- [ ] Create `src/components/SceneCard.tsx`
-- [ ] Props: `leftLabel: string`, `leftText: string`, `leftSource: string`, `rightLabel: string`, `rightText: string`, `rightSource: string`
-- [ ] Max-width 820px, centered, 2-column grid, border .5px faint
-- [ ] Left column: gold-tinted background (rgba(200,169,110,0.02)), border-right .5px faint
-- [ ] Both columns: padding 2.5rem, label in DM Mono 9px gold uppercase, text in EB Garamond 16px italic muted, source in DM Mono 9px dimmer
-- [ ] Mobile: single column, left becomes top with border-bottom instead of border-right
+- [x] Create `src/components/SceneCard.tsx`
+- [x] Props: `leftLabel: string`, `leftText: string`, `leftSource: string`, `rightLabel: string`, `rightText: string`, `rightSource: string`
+- [x] Max-width 820px, centered, 2-column grid, border .5px faint
+- [x] Left column: gold-tinted background (rgba(200,169,110,0.02)), border-right .5px faint
+- [x] Both columns: padding 2.5rem, label in DM Mono 9px gold uppercase, text in EB Garamond 16px italic muted, source in DM Mono 9px dimmer
+- [x] Mobile: single column, left becomes top with border-bottom instead of border-right
 
 **Verify:** Two columns clearly distinct. Mobile stacks correctly.
 
 ---
 
 ### Task 2.9 — Oral history component
-- [ ] Create `src/components/OralHistory.tsx`
-- [ ] Props: `voices: OralHistoryVoice[]`, `eyebrow?: string`
-- [ ] Max-width 820px, centered, padding 3rem 2.5rem
-- [ ] Eyebrow: DM Mono 9px gold uppercase with gold line after (flex, ::after)
-- [ ] Each voice: CSS grid, columns `130px 1fr`, gap 1.25rem, border-bottom .5px faint, padding-bottom 2rem
-- [ ] Last voice: no border-bottom
-- [ ] Left col: name in DM Mono 9px gold uppercase, role in DM Mono 8px dimmer
-- [ ] Right col: EB Garamond 16px italic, rgba(240,232,216,0.75), line-height 1.7
-- [ ] Mobile: single column, name/role above quote
+- [x] Create `src/components/OralHistory.tsx`
+- [x] Props: `voices: OralHistoryVoice[]`, `eyebrow?: string`
+- [x] Max-width 820px, centered, padding 3rem 2.5rem
+- [x] Eyebrow: DM Mono 9px gold uppercase with gold line after (flex, ::after)
+- [x] Each voice: CSS grid, columns `130px 1fr`, gap 1.25rem, border-bottom .5px faint, padding-bottom 2rem
+- [x] Last voice: no border-bottom
+- [x] Left col: name in DM Mono 9px gold uppercase, role in DM Mono 8px dimmer
+- [x] Right col: EB Garamond 16px italic, rgba(240,232,216,0.75), line-height 1.7
+- [x] Mobile: single column, name/role above quote
 
 **Verify:** Voices are visually distinct. Grid aligns names and quotes cleanly.
 
 ---
 
 ### Task 2.10 — Second person component
-- [ ] Create `src/components/SecondPerson.tsx`
-- [ ] Props: `tag: string`, `children: React.ReactNode`
-- [ ] Full-width, background rgba(200,169,110,0.025), border-top and border-bottom .5px gold-dim
-- [ ] Padding 4rem 2.5rem, margin 3rem 0
-- [ ] Inner max-width 660px centered
-- [ ] Tag: DM Mono 9px gold uppercase, flex with gold line after (::after)
-- [ ] Content: Playfair Display italic, clamp(16px,2vw,20px), line-height 1.7
-- [ ] `<em>` inside content: color gold
+- [x] Create `src/components/SecondPerson.tsx`
+- [x] Props: `tag: string`, `children: React.ReactNode`
+- [x] Full-width, background rgba(200,169,110,0.025), border-top and border-bottom .5px gold-dim
+- [x] Padding 4rem 2.5rem, margin 3rem 0
+- [x] Inner max-width 660px centered
+- [x] Tag: DM Mono 9px gold uppercase, flex with gold line after (::after)
+- [x] Content: Playfair Display italic, clamp(16px,2vw,20px), line-height 1.7
+- [x] `<em>` inside content: color gold
 
 **Verify:** Gold tint is subtle, not garish. Italic Playfair feels cinematic.
 
@@ -278,32 +278,32 @@ After each task, run `next build` to verify no TypeScript or build errors before
 ---
 
 ### Task 2.15 — Mental model component
-- [ ] Create `src/components/MentalModel.tsx`
-- [ ] Props: `name: string`, `definition: string`, `note: string`
-- [ ] Max-width 660px, centered, margin 0 2.5rem 3rem (or use padding for full-width sections)
-- [ ] Border: .5px solid gold-dim (all four sides)
-- [ ] Padding: 2.5rem
-- [ ] Tag: DM Mono 8px gold uppercase, margin-bottom 1.25rem
-- [ ] Name: Playfair Display italic, clamp(20px,3vw,30px), color #f5f0e8
-- [ ] Definition: EB Garamond 17px, rgba(240,232,216,0.68), line-height 1.7, margin-bottom 1.5rem
-- [ ] Note: DM Mono 9px, rgba(200,169,110,0.3), line-height 1.7
+- [x] Create `src/components/MentalModel.tsx`
+- [x] Props: `name: string`, `definition: string`, `note: string`
+- [x] Max-width 660px, centered, margin 0 2.5rem 3rem (or use padding for full-width sections)
+- [x] Border: .5px solid gold-dim (all four sides)
+- [x] Padding: 2.5rem
+- [x] Tag: DM Mono 8px gold uppercase, margin-bottom 1.25rem
+- [x] Name: Playfair Display italic, clamp(20px,3vw,30px), color #f5f0e8
+- [x] Definition: EB Garamond 17px, rgba(240,232,216,0.68), line-height 1.7, margin-bottom 1.5rem
+- [x] Note: DM Mono 9px, rgba(200,169,110,0.3), line-height 1.7
 
 **Verify:** Gold border is visible but not harsh. Name is the visual anchor.
 
 ---
 
 ### Task 2.16 — Reader vote component
-- [ ] Create `src/components/ReaderVote.tsx`
-- [ ] Props: `question: string`, `seedVotes?: { yes: number, no: number }`
-- [ ] Reads gate answer from `localStorage('lc_gate')` on mount
-- [ ] If gate answer exists: shows pre-recall text above — "Before reading, you said: [Yes/No]. Has that changed?"
-- [ ] Same button design as Gate but slightly smaller padding
-- [ ] On vote: store in `localStorage('lc_final')`, show bars
-- [ ] Post-vote recall text:
+- [x] Create `src/components/ReaderVote.tsx`
+- [x] Props: `question: string`, `seedVotes?: { yes: number, no: number }`
+- [x] Reads gate answer from `localStorage('lc_gate')` on mount
+- [x] If gate answer exists: shows pre-recall text above — "Before reading, you said: [Yes/No]. Has that changed?"
+- [x] Same button design as Gate but slightly smaller padding
+- [x] On vote: store in `localStorage('lc_final')`, show bars
+- [x] Post-vote recall text:
   - If answer changed: "You started saying [X]. By the end, you changed your mind. That's the piece working."
   - If same: "You started saying [X]. You finished the same. Either the evidence confirmed what you knew — or it wasn't enough to move you. Both are worth sitting with."
-- [ ] Bars: Yes = gold, No = red, animate width on show
-- [ ] Border-top .5px faint above component, padding-top 3rem
+- [x] Bars: Yes = gold, No = red, animate width on show
+- [x] Border-top .5px faint above component, padding-top 3rem
 
 **Verify:** Recall text appears correctly for both changed and unchanged answers. SSR safe.
 
@@ -312,28 +312,28 @@ After each task, run `next build` to verify no TypeScript or build errors before
 ## PHASE 3 — Article Route
 
 ### Task 3.1 — Dynamic article page
-- [ ] Create `src/app/[article]/page.tsx`
-- [ ] Use `getArticleBySlug(params.article)` to fetch content
-- [ ] If null: `notFound()`
-- [ ] Use `next-mdx-remote/rsc` to render MDX with all components passed as `components` prop
-- [ ] Pass all components: Gate, Hero, ActBreak, Prose, OpenLoop, PullQuote, SceneCard, OralHistory, SecondPerson, EvidenceFile, ContradictionEngine, Verdict, MotifReveal, MentalModel, ReaderVote
-- [ ] Wrap in article layout that includes `<Filmstrip acts={frontmatter.acts} totalMinutes={frontmatter.totalMinutes} />`
-- [ ] Generate metadata from frontmatter: title, description (deck), og:title, og:description, og:image (`/og/[article].jpg`)
-- [ ] `generateStaticParams` using `getAllArticleSlugs()`
+- [x] Create `src/app/[article]/page.tsx`
+- [x] Use `getArticleBySlug(params.article)` to fetch content
+- [x] If null: `notFound()`
+- [x] Use `next-mdx-remote/rsc` to render MDX with all components passed as `components` prop
+- [x] Pass all components: Gate, Hero, ActBreak, Prose, OpenLoop, PullQuote, SceneCard, OralHistory, SecondPerson, EvidenceFile, ContradictionEngine, Verdict, MotifReveal, MentalModel, ReaderVote
+- [x] Wrap in article layout that includes `<Filmstrip acts={frontmatter.acts} totalMinutes={frontmatter.totalMinutes} />`
+- [x] Generate metadata from frontmatter: title, description (deck), og:title, og:description, og:image (`/og/[article].jpg`)
+- [x] `generateStaticParams` using `getAllArticleSlugs()`
 
 **Verify:** `/altman` returns 404 (correct — MDX file doesn't exist yet). `/nonexistent` returns 404.
 
 ---
 
 ### Task 3.2 — Altman MDX content file
-- [ ] Create `src/content/altman.mdx`
-- [ ] Frontmatter: all fields from CLAUDE.md MDX format section
-- [ ] Full article content populated — all components with real data
-- [ ] Contradiction engine: 5 items, gap values exactly 18, 42, 64, 82, 97
-- [ ] Oral history: 5 voices including one defender (Ron Conway or Sue Yoon)
-- [ ] Evidence file: 5 items, items 3, 4, 5 have redacted text
-- [ ] Motif appears in: OpenLoop (Act I), one sentence in Act II prose, one sentence in Act III prose, MotifReveal (7 lines)
-- [ ] Open loop word ("Lying.") closes with "This is what was in them." before EvidenceFile
+- [x] Create `src/content/altman.mdx`
+- [x] Frontmatter: all fields from CLAUDE.md MDX format section
+- [x] Full article content populated — all components with real data
+- [x] Contradiction engine: 5 items, gap values exactly 18, 42, 64, 82, 97
+- [x] Oral history: 5 voices including one defender (Ron Conway or Sue Yoon)
+- [x] Evidence file: 5 items, items 3, 4, 5 have redacted text
+- [x] Motif appears in: OpenLoop (Act I), one sentence in Act II prose, one sentence in Act III prose, MotifReveal (7 lines)
+- [x] Open loop word ("Lying.") closes with "This is what was in them." before EvidenceFile
 
 **Verify:** `/altman` renders the full article. All components appear. Scroll reveals work.
 
@@ -342,13 +342,13 @@ After each task, run `next build` to verify no TypeScript or build errors before
 ## PHASE 4 — Landing Page
 
 ### Task 4.1 — Landing page
-- [ ] Create `src/app/page.tsx`
-- [ ] Full viewport height, background var(--ink)
-- [ ] Gate question centered: "Should one person be trusted with the most powerful technology in human history?"
-- [ ] Two buttons — same Gate component logic
-- [ ] After vote: live percentage shown, "enter the piece →" link to `/altman`
-- [ ] Bottom: minimal footer — "longcut.ink" in DM Mono dim · "The long game, in ink." in EB Garamond italic dim
-- [ ] Metadata: title "longcut.ink", description "Cinematic long-form journalism. The long game, in ink."
+- [x] Create `src/app/page.tsx`
+- [x] Full viewport height, background var(--ink)
+- [x] Gate question centered: "Should one person be trusted with the most powerful technology in human history?"
+- [x] Two buttons — same Gate component logic
+- [x] After vote: live percentage shown, "enter the piece →" link to `/altman`
+- [x] Bottom: minimal footer — "longcut.ink" in DM Mono dim · "The long game, in ink." in EB Garamond italic dim
+- [x] Metadata: title "longcut.ink", description "Cinematic long-form journalism. The long game, in ink."
 
 **Verify:** Landing page loads. Vote works. Link to article works.
 

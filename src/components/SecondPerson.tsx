@@ -63,6 +63,12 @@ export default function SecondPerson({ tag, children }: SecondPersonProps) {
           color: var(--gold);
           font-style: italic;
         }
+
+        @media (max-width: 640px) {
+          .second-person {
+            padding: 3rem 1.5rem;
+          }
+        }
       `}</style>
 
       <div className="second-person">

@@ -49,6 +49,13 @@ export default function MentalModel({ name, definition, note }: MentalModelProps
           color: rgba(200, 169, 110, 0.3);
           line-height: 1.7;
         }
+
+        @media (max-width: 640px) {
+          .mental-model {
+            margin: 0 1.5rem 3rem;
+            padding: 1.75rem;
+          }
+        }
       `}</style>
 
       <div className="mental-model">

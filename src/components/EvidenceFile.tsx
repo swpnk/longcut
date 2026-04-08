@@ -155,6 +155,12 @@ export default function EvidenceFile({ label, from, to, subject, items }: Eviden
           color: rgba(240, 232, 216, 0.18);
           margin-top: 0.65rem;
         }
+
+        @media (max-width: 640px) {
+          .ef-wrap {
+            padding: 0 1.5rem 3rem;
+          }
+        }
       `}</style>
 
       <div className="ef-wrap">

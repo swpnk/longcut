@@ -81,7 +81,7 @@ export default async function ArticlePage({ params }: PageProps) {
     <>
       <Filmstrip acts={frontmatter.acts} totalMinutes={frontmatter.totalMinutes} />
       <main style={{ paddingTop: '48px' }}>
-        <MDXRemote source={content} components={components} />
+        <MDXRemote source={content} components={components} options={{ blockJS: false }} />
       </main>
     </>
   )
