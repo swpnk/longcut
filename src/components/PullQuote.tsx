@@ -1,9 +1,31 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+
 interface PullQuoteProps {
   quote: string
   cite: string
 }
 
 export default function PullQuote({ quote, cite }: PullQuoteProps) {
+  const ref = useRef<HTMLQuoteElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('pq-vis')
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.2 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       <style>{`
@@ -11,7 +33,16 @@ export default function PullQuote({ quote, cite }: PullQuoteProps) {
           max-width: 580px;
           margin: 0 auto 3rem;
           padding: 1.75rem 2.5rem;
-          border-left: 2px solid var(--gold);
+          border-left: 2px solid transparent;
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 0.8s ease, transform 0.8s ease, border-left-color 0.6s ease 0.5s;
+        }
+
+        .pull-quote.pq-vis {
+          opacity: 1;
+          transform: translateY(0);
+          border-left-color: var(--gold);
         }
 
         .pull-quote-text {
@@ -31,6 +62,12 @@ export default function PullQuote({ quote, cite }: PullQuoteProps) {
           text-transform: uppercase;
           color: var(--gold);
           font-style: normal;
+          opacity: 0;
+          transition: opacity 0.5s ease 0.9s;
+        }
+
+        .pull-quote.pq-vis .pull-quote-cite {
+          opacity: 1;
         }
 
         @media (max-width: 640px) {
@@ -41,7 +78,7 @@ export default function PullQuote({ quote, cite }: PullQuoteProps) {
         }
       `}</style>
 
-      <blockquote className="pull-quote">
+      <blockquote className="pull-quote" ref={ref}>
         <p className="pull-quote-text">{quote}</p>
         <cite className="pull-quote-cite">{cite}</cite>
       </blockquote>

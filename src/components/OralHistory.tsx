@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
 import { OralHistoryVoice } from '@/types/article'
 
 interface OralHistoryProps {
@@ -6,6 +9,29 @@ interface OralHistoryProps {
 }
 
 export default function OralHistory({ voices = [], eyebrow }: OralHistoryProps) {
+  const voiceRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = []
+
+    voiceRefs.current.forEach((el, i) => {
+      if (!el) return
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => el.classList.add('oh-vis'), i * 160)
+            observer.disconnect()
+          }
+        },
+        { threshold: 0.15 }
+      )
+      observer.observe(el)
+      observers.push(observer)
+    })
+
+    return () => observers.forEach((o) => o.disconnect())
+  }, [voices])
+
   return (
     <>
       <style>{`
@@ -41,11 +67,19 @@ export default function OralHistory({ voices = [], eyebrow }: OralHistoryProps) 
           border-bottom: 0.5px solid var(--faint);
           padding-bottom: 2rem;
           margin-bottom: 2rem;
+          opacity: 0;
+          transform: translateY(22px);
+          transition: opacity 0.7s ease, transform 0.7s ease;
         }
 
         .oral-voice:last-child {
           border-bottom: none;
           margin-bottom: 0;
+        }
+
+        .oral-voice.oh-vis {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .oral-voice-id {
@@ -59,6 +93,12 @@ export default function OralHistory({ voices = [], eyebrow }: OralHistoryProps) 
           text-transform: uppercase;
           color: var(--gold);
           margin-bottom: 0.3rem;
+          opacity: 0;
+          transition: opacity 0.4s ease 0.3s;
+        }
+
+        .oral-voice.oh-vis .oral-voice-name {
+          opacity: 1;
         }
 
         .oral-voice-role {
@@ -89,7 +129,11 @@ export default function OralHistory({ voices = [], eyebrow }: OralHistoryProps) 
       <div className="oral-history">
         {eyebrow && <div className="oral-history-eyebrow">{eyebrow}</div>}
         {voices.map((voice, i) => (
-          <div key={i} className="oral-voice">
+          <div
+            key={i}
+            className="oral-voice"
+            ref={(el) => { voiceRefs.current[i] = el }}
+          >
             <div className="oral-voice-id">
               <div className="oral-voice-name">{voice.name}</div>
               <div className="oral-voice-role">{voice.role}</div>

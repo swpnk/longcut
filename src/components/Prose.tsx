@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
 import { ReactNode } from 'react'
 
 interface ProseProps {
@@ -7,6 +10,29 @@ interface ProseProps {
 }
 
 export default function Prose({ children, dropcap, wide }: ProseProps) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Stagger each paragraph
+          const paras = el.querySelectorAll('p')
+          paras.forEach((p, i) => {
+            setTimeout(() => p.classList.add('prose-p-vis'), i * 80)
+          })
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.05 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       <style>{`
@@ -26,6 +52,14 @@ export default function Prose({ children, dropcap, wide }: ProseProps) {
           line-height: 1.8;
           color: rgba(240, 232, 216, 0.87);
           margin-bottom: 1.65em;
+          opacity: 0;
+          transform: translateY(16px);
+          transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+
+        .prose p.prose-p-vis {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .prose-dropcap p:first-child::first-letter {
@@ -45,7 +79,10 @@ export default function Prose({ children, dropcap, wide }: ProseProps) {
         }
       `}</style>
 
-      <div className={`prose${wide ? ' prose-wide' : ''}${dropcap ? ' prose-dropcap' : ''}`}>
+      <div
+        className={`prose${wide ? ' prose-wide' : ''}${dropcap ? ' prose-dropcap' : ''}`}
+        ref={ref}
+      >
         {children}
       </div>
     </>

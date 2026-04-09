@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
 import { ReactNode } from 'react'
 
 interface SecondPersonProps {
@@ -6,16 +9,64 @@ interface SecondPersonProps {
 }
 
 export default function SecondPerson({ tag, children }: SecondPersonProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const tagRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const container = containerRef.current
+    const tagEl = tagRef.current
+    if (!container || !tagEl) return
+
+    // Reveal the container border/background on intersection
+    const containerObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          container.classList.add('sp-vis')
+          containerObserver.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+    containerObserver.observe(container)
+
+    // Stagger-reveal each paragraph inside the content
+    const contentEl = container.querySelector('.second-person-content')
+    if (contentEl) {
+      const paras = Array.from(contentEl.querySelectorAll('p'))
+      paras.forEach((p, i) => {
+        p.classList.add('sp-para')
+        const paraObserver = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => p.classList.add('sp-para-vis'), i * 120)
+              paraObserver.disconnect()
+            }
+          },
+          { threshold: 0.2 }
+        )
+        paraObserver.observe(p)
+      })
+    }
+
+    return () => containerObserver.disconnect()
+  }, [])
+
   return (
     <>
       <style>{`
         .second-person {
           width: 100%;
           background: rgba(200, 169, 110, 0.025);
-          border-top: 0.5px solid var(--gold-dim);
-          border-bottom: 0.5px solid var(--gold-dim);
+          border-top: 0.5px solid transparent;
+          border-bottom: 0.5px solid transparent;
           padding: 4rem 2.5rem;
           margin: 3rem 0;
+          transition: border-color 0.6s ease 0.2s;
+        }
+
+        .second-person.sp-vis {
+          border-top-color: var(--gold-dim);
+          border-bottom-color: var(--gold-dim);
         }
 
         .second-person-inner {
@@ -33,6 +84,14 @@ export default function SecondPerson({ tag, children }: SecondPersonProps) {
           text-transform: uppercase;
           color: rgba(200, 169, 110, 0.35);
           margin-bottom: 2rem;
+          opacity: 0;
+          transform: translateY(10px);
+          transition: opacity 0.5s ease 0.35s, transform 0.5s ease 0.35s;
+        }
+
+        .second-person.sp-vis .second-person-tag {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .second-person-tag::after {
@@ -64,6 +123,18 @@ export default function SecondPerson({ tag, children }: SecondPersonProps) {
           font-style: italic;
         }
 
+        /* Per-paragraph reveals */
+        .sp-para {
+          opacity: 0;
+          transform: translateY(16px);
+          transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+
+        .sp-para.sp-para-vis {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
         @media (max-width: 640px) {
           .second-person {
             padding: 3rem 1.5rem;
@@ -71,9 +142,9 @@ export default function SecondPerson({ tag, children }: SecondPersonProps) {
         }
       `}</style>
 
-      <div className="second-person">
+      <div className="second-person" ref={containerRef}>
         <div className="second-person-inner">
-          <div className="second-person-tag">{tag}</div>
+          <div className="second-person-tag" ref={tagRef}>{tag}</div>
           <div className="second-person-content">{children}</div>
         </div>
       </div>

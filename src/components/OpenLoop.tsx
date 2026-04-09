@@ -1,3 +1,7 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+
 interface OpenLoopProps {
   word: string
   note: string
@@ -5,6 +9,24 @@ interface OpenLoopProps {
 }
 
 export default function OpenLoop({ word, note, preLabel }: OpenLoopProps) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('ol-vis')
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.3 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       <style>{`
@@ -23,6 +45,12 @@ export default function OpenLoop({ word, note, preLabel }: OpenLoopProps) {
           text-transform: uppercase;
           color: rgba(240, 232, 216, 0.25);
           margin-bottom: 0.75rem;
+          opacity: 0;
+          transition: opacity 0.5s ease 0.15s;
+        }
+
+        .open-loop.ol-vis .open-loop-prelabel {
+          opacity: 1;
         }
 
         .open-loop-word {
@@ -34,6 +62,15 @@ export default function OpenLoop({ word, note, preLabel }: OpenLoopProps) {
           color: var(--gold);
           margin: 0.5rem 0;
           line-height: 1;
+          opacity: 0;
+          transform: translateY(30px) scale(0.94);
+          transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
+                      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+        }
+
+        .open-loop.ol-vis .open-loop-word {
+          opacity: 1;
+          transform: translateY(0) scale(1);
         }
 
         .open-loop-note {
@@ -46,6 +83,12 @@ export default function OpenLoop({ word, note, preLabel }: OpenLoopProps) {
           text-transform: uppercase;
           color: rgba(240, 232, 216, 0.18);
           margin-top: 0.5rem;
+          opacity: 0;
+          transition: opacity 0.5s ease 0.5s;
+        }
+
+        .open-loop.ol-vis .open-loop-note {
+          opacity: 1;
         }
 
         .open-loop-note::before {
@@ -64,7 +107,7 @@ export default function OpenLoop({ word, note, preLabel }: OpenLoopProps) {
         }
       `}</style>
 
-      <div className="open-loop">
+      <div className="open-loop" ref={ref}>
         {preLabel && <div className="open-loop-prelabel">{preLabel}</div>}
         <span className="open-loop-word">{word}</span>
         <div className="open-loop-note">{note}</div>

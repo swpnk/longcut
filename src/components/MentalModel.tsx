@@ -1,3 +1,7 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+
 interface MentalModelProps {
   name: string
   definition: string
@@ -5,14 +9,43 @@ interface MentalModelProps {
 }
 
 export default function MentalModel({ name, definition, note }: MentalModelProps) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('mm-vis')
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.2 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       <style>{`
         .mental-model {
           max-width: 660px;
           margin: 0 auto 3rem;
-          border: 0.5px solid var(--gold-dim);
+          border: 0.5px solid transparent;
           padding: 2.5rem;
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 0.8s ease,
+                      transform 0.8s ease,
+                      border-color 0.6s ease 0.4s;
+        }
+
+        .mental-model.mm-vis {
+          opacity: 1;
+          transform: translateY(0);
+          border-color: var(--gold-dim);
         }
 
         .mental-model-tag {
@@ -22,6 +55,12 @@ export default function MentalModel({ name, definition, note }: MentalModelProps
           text-transform: uppercase;
           color: rgba(200, 169, 110, 0.4);
           margin-bottom: 1.25rem;
+          opacity: 0;
+          transition: opacity 0.5s ease 0.6s;
+        }
+
+        .mental-model.mm-vis .mental-model-tag {
+          opacity: 1;
         }
 
         .mental-model-name {
@@ -58,7 +97,7 @@ export default function MentalModel({ name, definition, note }: MentalModelProps
         }
       `}</style>
 
-      <div className="mental-model">
+      <div className="mental-model" ref={ref}>
         <div className="mental-model-tag">The mental model — take this with you</div>
         <div className="mental-model-name">{name}</div>
         <div className="mental-model-definition">{definition}</div>
