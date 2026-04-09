@@ -7,21 +7,26 @@ interface GateProps {
   issueLabel?: string
   seedVotes?: { yes: number; no: number }
   onVoted?: (choice: 'yes' | 'no') => void
+  variant?: 'full' | 'inline'
 }
 
 const DEFAULT_SEED = { yes: 3241, no: 11087 }
 
-export default function Gate({ question, issueLabel, seedVotes, onVoted }: GateProps) {
+export default function Gate({ question, issueLabel, seedVotes, onVoted, variant = 'full' }: GateProps) {
   const seed = seedVotes ?? DEFAULT_SEED
   const [vote, setVote] = useState<'yes' | 'no' | null>(null)
+  const [collapsed, setCollapsed] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const [counts, setCounts] = useState(seed)
 
   useEffect(() => {
+    setMounted(true)
     if (typeof window === 'undefined') return
     const stored = localStorage.getItem('lc_gate') as 'yes' | 'no' | null
     if (stored) {
       setVote(stored)
       setCounts({ yes: seed.yes + (stored === 'yes' ? 1 : 0), no: seed.no + (stored === 'no' ? 1 : 0) })
+      if (variant === 'inline') setCollapsed(true)
     }
   }, [])
 
@@ -31,12 +36,120 @@ export default function Gate({ question, issueLabel, seedVotes, onVoted }: GateP
     localStorage.setItem('lc_gate', choice)
     setVote(choice)
     setCounts((prev) => ({ ...prev, [choice]: prev[choice] + 1 }))
+    if (variant === 'inline') {
+      setTimeout(() => setCollapsed(true), 400)
+    }
   }
 
   const total = counts.yes + counts.no
   const yesPct = Math.round((counts.yes / total) * 100)
   const noPct = 100 - yesPct
 
+  // Inline variant: already voted on previous visit → render nothing at all
+  if (variant === 'inline' && mounted && collapsed) return null
+
+  if (variant === 'inline') {
+    return (
+      <>
+        <style>{`
+          .gate-inline {
+            max-width: 660px;
+            margin: 0 auto 3rem;
+            padding: 20px 28px;
+            border: 0.5px solid var(--faint);
+            opacity: 1;
+            transition: opacity 0.4s ease, max-height 0.4s ease;
+            overflow: hidden;
+          }
+
+          .gate-inline-pre {
+            font-family: var(--font-label);
+            font-size: 8px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(200,169,110,0.4);
+            margin-bottom: 10px;
+          }
+
+          .gate-inline-question {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-style: italic;
+            color: var(--muted);
+            line-height: 1.55;
+            margin-bottom: 14px;
+          }
+
+          .gate-inline-buttons {
+            display: flex;
+            gap: 10px;
+          }
+
+          .gate-inline-btn {
+            font-family: var(--font-label);
+            font-size: 8px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            border: 0.5px solid var(--faint);
+            background: transparent;
+            color: rgba(240,232,216,0.45);
+            cursor: pointer;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+          }
+
+          .gate-inline-btn:hover:not(:disabled) {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(200,169,110,0.04);
+          }
+
+          .gate-inline-btn:disabled {
+            cursor: default;
+          }
+
+          .gate-inline-btn.sel-yes {
+            border-color: var(--gold);
+            color: var(--gold);
+          }
+
+          .gate-inline-btn.sel-no {
+            border-color: rgba(200,65,45,0.4);
+            color: rgba(200,65,45,0.8);
+          }
+
+          @media (max-width: 640px) {
+            .gate-inline {
+              margin: 0 1.5rem 3rem;
+            }
+          }
+        `}</style>
+
+        <div className="gate-inline">
+          <div className="gate-inline-pre">Before you read — a question</div>
+          <div className="gate-inline-question">{question}</div>
+          <div className="gate-inline-buttons">
+            <button
+              className={`gate-inline-btn${vote === 'yes' ? ' sel-yes' : ''}`}
+              onClick={() => handleVote('yes')}
+              disabled={!!vote}
+            >
+              Yes
+            </button>
+            <button
+              className={`gate-inline-btn${vote === 'no' ? ' sel-no' : ''}`}
+              onClick={() => handleVote('no')}
+              disabled={!!vote}
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  // Full variant (original behaviour)
   return (
     <>
       <style>{`
@@ -104,9 +217,7 @@ export default function Gate({ question, issueLabel, seedVotes, onVoted }: GateP
           color: var(--gold);
         }
 
-        .gate-btn:disabled {
-          cursor: default;
-        }
+        .gate-btn:disabled { cursor: default; }
 
         .gate-btn.selected-yes {
           border-color: var(--gold);
@@ -131,15 +242,9 @@ export default function Gate({ question, issueLabel, seedVotes, onVoted }: GateP
           margin-bottom: 2.5rem;
         }
 
-        .gate-bars.show {
-          opacity: 1;
-        }
+        .gate-bars.show { opacity: 1; }
 
-        .gate-bar-row {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-        }
+        .gate-bar-row { display: flex; flex-direction: column; gap: 4px; }
 
         .gate-bar-meta {
           display: flex;
@@ -158,46 +263,21 @@ export default function Gate({ question, issueLabel, seedVotes, onVoted }: GateP
           overflow: hidden;
         }
 
-        .gate-bar-fill {
-          height: 100%;
-          width: 0;
-          transition: width 0.6s ease 0.4s;
-        }
-
-        .gate-bar-fill.yes {
-          background: var(--gold);
-        }
-
-        .gate-bar-fill.no {
-          background: rgba(200, 65, 45, 0.7);
-        }
-
-        .gate-bar-fill.ready {
-          width: var(--target-width);
-        }
+        .gate-bar-fill { height: 100%; width: 0; transition: width 0.6s ease 0.4s; }
+        .gate-bar-fill.yes { background: var(--gold); }
+        .gate-bar-fill.no { background: rgba(200, 65, 45, 0.7); }
+        .gate-bar-fill.ready { width: var(--target-width); }
 
         @media (max-width: 640px) {
-          .gate-buttons {
-            flex-direction: column;
-            width: 100%;
-            max-width: 320px;
-          }
-          .gate-btn {
-            width: 100%;
-            min-height: 48px;
-            padding: 16px 32px;
-          }
+          .gate-buttons { flex-direction: column; width: 100%; max-width: 320px; }
+          .gate-btn { width: 100%; min-height: 48px; padding: 16px 32px; }
         }
       `}</style>
 
       <section className="gate">
         {issueLabel && <p className="gate-issue">{issueLabel}</p>}
-
         <p className="gate-question">{question}</p>
-
-        <p className="gate-subtext">
-          Answer now. Before the evidence. We&rsquo;ll ask again at the end.
-        </p>
+        <p className="gate-subtext">Answer now. Before the evidence. We&rsquo;ll ask again at the end.</p>
 
         <div className="gate-buttons">
           <button
@@ -218,27 +298,15 @@ export default function Gate({ question, issueLabel, seedVotes, onVoted }: GateP
 
         <div className={`gate-bars${vote ? ' show' : ''}`}>
           <div className="gate-bar-row">
-            <div className="gate-bar-meta">
-              <span>Yes</span>
-              <span>{yesPct}%</span>
-            </div>
+            <div className="gate-bar-meta"><span>Yes</span><span>{yesPct}%</span></div>
             <div className="gate-bar-track">
-              <div
-                className={`gate-bar-fill yes${vote ? ' ready' : ''}`}
-                style={{ '--target-width': `${yesPct}%` } as React.CSSProperties}
-              />
+              <div className={`gate-bar-fill yes${vote ? ' ready' : ''}`} style={{ '--target-width': `${yesPct}%` } as React.CSSProperties} />
             </div>
           </div>
           <div className="gate-bar-row">
-            <div className="gate-bar-meta">
-              <span>No</span>
-              <span>{noPct}%</span>
-            </div>
+            <div className="gate-bar-meta"><span>No</span><span>{noPct}%</span></div>
             <div className="gate-bar-track">
-              <div
-                className={`gate-bar-fill no${vote ? ' ready' : ''}`}
-                style={{ '--target-width': `${noPct}%` } as React.CSSProperties}
-              />
+              <div className={`gate-bar-fill no${vote ? ' ready' : ''}`} style={{ '--target-width': `${noPct}%` } as React.CSSProperties} />
             </div>
           </div>
         </div>

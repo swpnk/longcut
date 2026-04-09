@@ -18,6 +18,7 @@ import Verdict from '@/components/Verdict'
 import MotifReveal from '@/components/MotifReveal'
 import MentalModel from '@/components/MentalModel'
 import ReaderVote from '@/components/ReaderVote'
+import SourcesPanel from '@/components/SourcesPanel'
 
 const components = {
   Gate,
@@ -35,6 +36,7 @@ const components = {
   MotifReveal,
   MentalModel,
   ReaderVote,
+  SourcesPanel,
 }
 
 interface PageProps {

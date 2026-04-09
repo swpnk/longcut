@@ -48,7 +48,7 @@ export default function Prose({ children, dropcap, wide }: ProseProps) {
 
         .prose p {
           font-family: var(--font-body);
-          font-size: 19px;
+          font-size: 21px;
           line-height: 1.8;
           color: rgba(240, 232, 216, 0.87);
           margin-bottom: 1.65em;
