@@ -44,7 +44,7 @@ export default function HomePage() {
 
         .lp-nav-logo {
           font-family: var(--font-label);
-          font-size: 11px;
+          font-size: 16px;
           letter-spacing: 0.16em;
           color: var(--gold);
           font-style: italic;

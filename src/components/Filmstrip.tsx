@@ -89,7 +89,7 @@ export default function Filmstrip({ acts, totalMinutes }: FilmstripProps) {
 
         .filmstrip-logo {
           font-family: var(--font-label);
-          font-size: 10px;
+          font-size: 15px;
           letter-spacing: 0.12em;
           color: var(--gold);
           text-decoration: none;
