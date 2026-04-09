@@ -9,10 +9,10 @@ interface MentalModelProps {
 }
 
 export default function MentalModel({ name, definition, note }: MentalModelProps) {
-  const ref = useRef<HTMLDivElement>(null)
+  const mainRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const el = ref.current
+    const el = mainRef.current
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -30,78 +30,123 @@ export default function MentalModel({ name, definition, note }: MentalModelProps
   return (
     <>
       <style>{`
-        .mental-model {
-          max-width: 660px;
-          margin: 0 auto 3rem;
-          border: 0.5px solid transparent;
-          padding: 2.5rem;
-          opacity: 0;
-          transform: translateY(24px);
-          transition: opacity 0.8s ease,
-                      transform 0.8s ease,
-                      border-color 0.6s ease 0.4s;
+        .mm-letterbox {
+          width: 100%;
+          margin: 3rem 0;
         }
 
-        .mental-model.mm-vis {
-          opacity: 1;
-          transform: translateY(0);
-          border-color: var(--gold-dim);
+        /* Cinema bars */
+        .mm-bar {
+          background: #000;
+          height: 56px;
+          width: 100%;
         }
 
-        .mental-model-tag {
+        /* Main panel */
+        .mm-main {
+          background: #050403;
+          border-top: 0.5px solid #1a1614;
+          border-bottom: 0.5px solid #1a1614;
+          padding: 4rem 2rem;
+          text-align: center;
+        }
+
+        .mm-eyebrow {
           font-family: var(--font-label);
           font-size: 8px;
-          letter-spacing: 0.15em;
+          letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(200, 169, 110, 0.4);
-          margin-bottom: 1.25rem;
+          color: rgba(200,169,110,0.35);
+          margin-bottom: 2rem;
           opacity: 0;
-          transition: opacity 0.5s ease 0.6s;
+          transition: opacity 0.5s ease 0.1s;
         }
 
-        .mental-model.mm-vis .mental-model-tag {
+        .mm-main.mm-vis .mm-eyebrow {
           opacity: 1;
         }
 
-        .mental-model-name {
+        .mm-name {
           font-family: var(--font-headline);
-          font-size: clamp(20px, 3vw, 30px);
+          font-size: clamp(28px, 5vw, 54px);
           font-style: italic;
           font-weight: 400;
           color: #f5f0e8;
-          margin-bottom: 1rem;
-          line-height: 1.2;
+          line-height: 1.1;
+          letter-spacing: -0.01em;
+          margin-bottom: 2rem;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.75s ease 0.25s, transform 0.75s ease 0.25s;
         }
 
-        .mental-model-definition {
+        .mm-main.mm-vis .mm-name {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .mm-def {
           font-family: var(--font-body);
-          font-size: 17px;
-          color: rgba(240, 232, 216, 0.68);
-          line-height: 1.7;
-          margin-bottom: 1.5rem;
+          font-size: clamp(14px, 1.8vw, 17px);
+          font-style: italic;
+          color: rgba(240,232,216,0.48);
+          line-height: 1.8;
+          max-width: 520px;
+          margin: 0 auto 2rem;
+          opacity: 0;
+          transition: opacity 0.6s ease 0.55s;
         }
 
-        .mental-model-note {
+        .mm-main.mm-vis .mm-def {
+          opacity: 1;
+        }
+
+        .mm-divider {
+          width: 32px;
+          height: 0.5px;
+          background: rgba(200,169,110,0.2);
+          margin: 0 auto 2rem;
+          opacity: 0;
+          transition: opacity 0.4s ease 0.7s;
+        }
+
+        .mm-main.mm-vis .mm-divider {
+          opacity: 1;
+        }
+
+        .mm-note {
           font-family: var(--font-label);
           font-size: 9px;
-          letter-spacing: 0.08em;
-          color: rgba(200, 169, 110, 0.3);
-          line-height: 1.7;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: rgba(200,169,110,0.25);
+          max-width: 440px;
+          margin: 0 auto;
+          line-height: 1.9;
+          opacity: 0;
+          transition: opacity 0.5s ease 0.85s;
+        }
+
+        .mm-main.mm-vis .mm-note {
+          opacity: 1;
         }
 
         @media (max-width: 640px) {
-          .mental-model {
-            margin: 0 1.5rem 3rem;
-            padding: 1.75rem;
-          }
+          .mm-bar { height: 36px; }
+          .mm-main { padding: 3rem 1.5rem; }
         }
       `}</style>
 
-      <div className="mental-model" ref={ref}>
-        <div className="mental-model-tag">The mental model — take this with you</div>
-        <div className="mental-model-name">{name}</div>
-        <div className="mental-model-definition">{definition}</div>
-        <div className="mental-model-note">{note}</div>
+      <div className="mm-letterbox">
+        <div className="mm-bar" />
+        <div className="mm-main" ref={mainRef}>
+          <div className="mm-eyebrow">Mental Model &middot; Take this with you</div>
+          <div className="mm-name">{name}</div>
+          <div className="mm-def">{definition}</div>
+          <div className="mm-divider" />
+          <div className="mm-note">{note}</div>
+        </div>
+        <div className="mm-bar" />
       </div>
     </>
   )
